@@ -11,14 +11,13 @@ const SearchCategory = () => {
   }
 
   return ( 
-  <select 
-  //   style=
-  //     {{
-  //       borderRadius: '30px 0 0 30px',
-  //       padding: '0 0 0 20px',
-  //       border: 'none',
+  <select class="md-form"
+  style={{
+    borderRadius: '30px 0 0 30px',
+    padding: '0 0 0 20px',
+    border: 'none',
   //       backgroundColor: currentStyle.componentsSecondary
-  //     }}
+  }}
   >
   {/* Create elements of dropdown */}
   {tagsArr.map((el) => {
