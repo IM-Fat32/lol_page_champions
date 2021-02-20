@@ -6,8 +6,8 @@ import CustomCookies from "./cookies/cookies.js";
 
 import SearchBar from "./components/SearchBar/SearchBar.jsx";
 
-import {InputContext} from "./InputContext.js";
-import {ChampionDataContext} from "./ChampionsDataContext.js";
+import {InputContext} from "./context/InputContext.js";
+import {ChampionDataContext} from "./context/ChampionsDataContext.js";
 
 import './App.css';
 
