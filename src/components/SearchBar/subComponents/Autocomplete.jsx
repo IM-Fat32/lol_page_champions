@@ -6,43 +6,42 @@ import {ChampionDataContext} from "../../../context/ChampionsDataContext.js";
 import {AutocompleteContext} from "../../../context/AutocompleteContext.js";
 import {CategoryContext} from "../../../context/CategoryContext.js";
 
+export function filtrData(name, tags, currentCategory, inputValue) {
+  if(currentCategory === 'All') {
+    if(name.toLowerCase().startsWith(inputValue.toLowerCase())){ //consist of same characters input and name in ChampionsNameArr
+      if(name.toLowerCase() !== inputValue.toLowerCase()){ //if names are same dont show autocoplete
+       return true;
+      }
+    }
+  }
+  else {
+    if(tags.includes(currentCategory)){
+      if(name.toLowerCase().startsWith(inputValue.toLowerCase())){ //consist of same characters input and name in ChampionsNameArr
+        if(name.toLowerCase() !== inputValue.toLowerCase()){ //if names are same dont show autocoplete
+          return true;
+        }
+      }
+    }
+  }
+  return false;
+}
+
 const Autocomplete = () => {
   const {inputValue, setInputValue} = useContext(InputContext); //use context from App.js <InputContext value={}/>
   const {shouldRenderAutocomplete, setShouldRenderAutocomplete} = useContext(AutocompleteContext);// use context from App.js <AutocompleteContext
-  const tmpData = useContext(ChampionDataContext);
+  const ChampionsNameArr = useContext(ChampionDataContext);
   const {category} = useContext(CategoryContext);
 
-  const ChampionsNameArr = Object.entries(tmpData);
   useEffect(()=> {
     
   },[inputValue])
-
-  function filtrData(name, tags, currentCategory) {
-    if(currentCategory === 'All') {
-      if(name.toLowerCase().startsWith(inputValue.toLowerCase())){ //consist of same characters input and name in ChampionsNameArr
-        if(name.toLowerCase() !== inputValue.toLowerCase()){ //if names are same dont show autocoplete
-         return true;
-        }
-      }
-    }
-    else {
-      if(tags.includes(currentCategory)){
-        if(name.toLowerCase().startsWith(inputValue.toLowerCase())){ //consist of same characters input and name in ChampionsNameArr
-          if(name.toLowerCase() !== inputValue.toLowerCase()){ //if names are same dont show autocoplete
-            return true;
-          }
-        }
-      }
-    }
-    return false;
-  }
 
   function showToolTips() {
     //filtr champion names arr to element which starts witn input value, both arguments are lower case, Dog => dog
     let names = ChampionsNameArr.filter((el)=> {
       const name = el[0];
       const tags = el[1].tags;
-      return(filtrData(name, tags, category))
+      return(filtrData(name, tags, category, inputValue))
     });
     //if filtered arr has more than 5 elements split to first, sordted by name elements
     if (names.length > 4 ){

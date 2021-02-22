@@ -1,8 +1,7 @@
 import React from 'react';
+import {Link} from 'react-router-dom';
 
 import SearchBar from "../components/SearchBar/SearchBar.jsx";
-
-import {WelcomePageStylesContext} from "../context/WelcomePageStylesContext.js";
 
 import image from '../images/mainBackground.jpg';
 
@@ -32,10 +31,6 @@ const WelcomePage = () => {
         backgroundSize: 'cover'
       }}
     >
-      <WelcomePageStylesContext.Provider value={{
-        buttonColor: welcomePageStyles.buttonRightColor,
-        fontColor: welcomePageStyles.buttonRightFontColor
-      }}>
         <div
           className="d-flex flex-column justify-content-sm-center align-items-sm-center p-5"
           style={{
@@ -66,8 +61,9 @@ const WelcomePage = () => {
               }}
             >
               Link to official website
-            </a>
-            <button 
+            </a>s
+            <Link
+              to='/search/All/'
               className="btn btn-primary m-4"
               style={{
                 backgroundColor: welcomePageStyles.buttonRightColor,
@@ -75,10 +71,9 @@ const WelcomePage = () => {
               }}
             >
               Show me all champions
-            </button>
+            </Link>
           </div>
         </div>
-      </WelcomePageStylesContext.Provider>
     </div>
   );
 }

@@ -15,12 +15,13 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 const SearchBar = ({currentStyle}) => {
   const [isSearchingActivated, setIsSearchingActivated] = useState(false); // redirect to page if true
-  const [category, setCategory] = useState('All'); //categorry of searching
   const {inputValue} = useContext(InputContext); //input value from SearchBar
+  const {category, setCategory} = useContext(CategoryContext);
+
 
   useEffect(()=>{
     setIsSearchingActivated(false);
-  },[inputValue, isSearchingActivated, category])//re-render if input value or flag to redirect changes
+  },[inputValue, isSearchingActivated, setIsSearchingActivated])//re-render if input value or flag to redirect changes
   return (
     <>
     {/* redirect to main page if isSearchingActivated is true*/}
