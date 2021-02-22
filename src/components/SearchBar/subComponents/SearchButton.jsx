@@ -1,18 +1,27 @@
 import React, {useContext} from 'react';
 
+
 import {WelcomePageStylesContext} from "../../../context/WelcomePageStylesContext.js"
+import {SearchDataFlagContext} from "../../../context/SearchDataFlagContext.js"
 
 import {Button} from "react-bootstrap";
 import { Icon } from '@iconify/react';
 import searchIcon from '@iconify-icons/ant-design/search-outlined';
 
 const SearchButton = () => {
-  const currentStyle = useContext(WelcomePageStylesContext);
+  const currentStyle = useContext(WelcomePageStylesContext);  
+  const {setIsSearchingActivated} = useContext(SearchDataFlagContext);  
+
+  const handleSearchChampions = () => { //change flag if key is enter
+    setIsSearchingActivated(true);
+  }
+
   return (
     <Button 
       variant='primary'
       className='icon-wrapper' 
-        style={{
+      onClick= {handleSearchChampions}
+      style={{
         backgroundColor: currentStyle.buttonColor,
         color: currentStyle.fontColor,
         border: 'none',
@@ -22,11 +31,11 @@ const SearchButton = () => {
         //   display: 'flex',
         //   alignItems: 'center',
         //   justifyContent: 'center',
-         padding: '0 20px'
-        }}
+        padding: '0 20px'
+      }}
     >
       <Icon icon={searchIcon} />
-    </Button>       
+    </Button>     
   );
 }
  

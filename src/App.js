@@ -47,7 +47,6 @@ const App = () => {
       setDataToContext(data.data)
     });
   };
-  console.log(championsData)
   function setDataToContext(data){
     setChampionsData(data);
  };
