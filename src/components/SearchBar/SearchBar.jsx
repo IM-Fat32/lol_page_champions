@@ -1,4 +1,4 @@
-import React, {useEffect, useContext, useState} from 'react';
+import React, {useEffect, useContext} from 'react';
 import { Redirect } from 'react-router-dom'
 
 import {InputContext} from "../../context/InputContext.js";
@@ -14,10 +14,11 @@ import SearchButton from "./subComponents/SearchButton.jsx";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const SearchBar = ({currentStyle}) => {
-  const [isSearchingActivated, setIsSearchingActivated] = useState(false); // redirect to page if true
+  const {isSearchingActivated, setIsSearchingActivated} = useContext(SearchDataFlagContext); // redirect to page if true
   const {inputValue} = useContext(InputContext); //input value from SearchBar
   const {category, setCategory} = useContext(CategoryContext);
 
+  console.log(currentStyle)
 
   useEffect(()=>{
     setIsSearchingActivated(false);
@@ -30,17 +31,15 @@ const SearchBar = ({currentStyle}) => {
         : 
         null
       }
-      <Container className="m-4">
+      <Container className="m-4" style={{zIndex: '999'}}>
         <Form>
           <Row>
             <InputGroup>
-              <SearchDataFlagContext.Provider value={{setIsSearchingActivated}}>
                 <CategoryContext.Provider value={{category, setCategory}}>
                   <SearchCategory/>
                   <SearchInput/>
                 </CategoryContext.Provider>
                 <SearchButton/>
-              </SearchDataFlagContext.Provider>
             </InputGroup>
           </Row>
         </Form>

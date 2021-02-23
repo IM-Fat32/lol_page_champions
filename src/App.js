@@ -16,6 +16,7 @@ import MainPage from "./pages/MainPage.jsx";
 import {InputContext} from "./context/InputContext.js";
 import {ChampionDataContext} from "./context/ChampionsDataContext.js";
 import {AutocompleteContext} from "./context/AutocompleteContext.js";
+import {SearchDataFlagContext} from "./context/SearchDataFlagContext.js";
 
 import './App.css';
 import { CategoryContext } from './context/CategoryContext.js';
@@ -35,14 +36,17 @@ const webStyles = {
 }
 
 const App = () => {
+  //configs
   const API = "http://ddragon.leagueoflegends.com/cdn/11.3.1/data/en_US/champion.json";
+  //states
   const [currentStyle, setCurrentStyle] = useState(webStyles.normal) //current style for page
   const [stateCookies, setStateCookies] = useState([]); //local state of current cookies
   const [category, setCategory] = useState('All'); //category of searching
   const [inputValue, setInputValue] = useState('');  //input value from search bar
-  const [championsData, setChampionsData] = useState('');  //input value from search bar
+  const [championsData, setChampionsData] = useState([]);  //input value from search bar
   const [shouldRenderAutocomplete, setShouldRenderAutocomplete] = useState(true); //autocomplete shows if = true
-  
+  const [isSearchingActivated, setIsSearchingActivated] = useState(false); // redirect to page if true
+
   function getDataFromAPi (API) {
     fetch(API).then(data => data.json()).then(data => {
       setDataToContext(Object.entries(data.data))
@@ -70,20 +74,22 @@ const App = () => {
   return (
     <Router>
       <Switch>
-        <ChampionDataContext.Provider value={championsData}>
-          <CategoryContext.Provider value={{category, setCategory}}>
-            <AutocompleteContext.Provider value={{shouldRenderAutocomplete, setShouldRenderAutocomplete}}>
-              <InputContext.Provider value={{inputValue, setInputValue}}>
-                <Route exact path="/">
-                  <WelcomePage/>
-                </Route>
-                <Route path="/search/">
-                  <MainPage/>
-                </Route>
-              </InputContext.Provider>
-            </AutocompleteContext.Provider>
-          </CategoryContext.Provider>
-        </ChampionDataContext.Provider>
+        <SearchDataFlagContext.Provider value={{isSearchingActivated, setIsSearchingActivated}}>
+          <ChampionDataContext.Provider value={championsData}>
+            <CategoryContext.Provider value={{category, setCategory}}>
+              <AutocompleteContext.Provider value={{shouldRenderAutocomplete, setShouldRenderAutocomplete}}>
+                <InputContext.Provider value={{inputValue, setInputValue}}>
+                  <Route exact path="/">
+                    <WelcomePage/>
+                  </Route>
+                  <Route path="/search/">
+                    <MainPage/>
+                  </Route>
+                </InputContext.Provider>
+              </AutocompleteContext.Provider>
+            </CategoryContext.Provider>
+          </ChampionDataContext.Provider>
+        </SearchDataFlagContext.Provider>
       </Switch>
     </Router>
   )

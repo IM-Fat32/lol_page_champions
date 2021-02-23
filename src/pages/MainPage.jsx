@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, {useContext, useEffect} from 'react';
 
 import SearchedChampions from "../components/SearchedChampions/SearchedChampions.jsx";
 import SearchBar from "../components/SearchBar/SearchBar.jsx";
@@ -9,10 +9,12 @@ import {CategoryContext} from "../context/CategoryContext.js";
 
 const MainPage = () => {
   return ( 
-    <>
-      <SearchBar/>
-      <SearchedChampions name='sas'/>
-    </>
+    <div className="container-fluid">
+      <div className="col-12 d-flex justify-content-center"> 
+        <SearchBar/>
+      </div>
+      <SearchedChampions/>
+    </div>
   )
 }
  
