@@ -5,7 +5,13 @@ import {CategoryContext} from "../../context/CategoryContext.js";
 import {InputContext} from "../../context/InputContext.js";
 import {SearchDataFlagContext} from "../../context/SearchDataFlagContext.js";
 
+
+import Card from './Card.jsx';
+import Popup from './Popup.jsx';
+
+
 const SearchedChampions = () => {
+  const [activeCard, setActiveCard] = useState([]);
   const ChampionsNameArr = useContext(ChampionDataContext);
   const {category} = useContext(CategoryContext);
   const {inputValue} = useContext(InputContext);
@@ -19,8 +25,11 @@ const SearchedChampions = () => {
     let currentData = pathname.slice(basicPath.length, pathname.length);
     currentData = currentData.split('/');
     setCurrentData(currentData);
-  },[isSearchingActivated])
- 
+  },[isSearchingActivated, activeCard])
+  console.log(activeCard)
+  const elementsToShow = getHTMLElements(getFilteredData());
+  
+
   function getFilteredData() {
     const dataToShow = ChampionsNameArr.filter(el => {
       try{
@@ -50,43 +59,24 @@ const SearchedChampions = () => {
     })
     return dataToShow;
   }
+
+  function handleClick(){
+    setActiveCard(this.championData)
+  }
   
   function getHTMLElements(arr) {
-    return arr.map(el => (
-      <div 
-        key={el[0]}
-        className="col-12 col-sm-6 col-lg-4 pt-4 m-4 card"
-        style={{
-          minWidth: '360px', 
-          boxShadow: '0 5px 10px rgba(154,160,185,.05), 0 15px 40px rgba(166,173,201,.2)',
-          border: 'none'
-      }}
-      >
-        <h5 className="card-title">{el[0]}</h5>
-        <p className='card-subtitle mb-3' >{el[1].title}</p>
-        <img 
-          src={`https://ddragon.leagueoflegends.com/cdn/img/champion/splash/${el[0]}_0.jpg`} 
-          alt={el[1].image.full}
-          className="img-fluid"
-          style={{
-            borderRadius: '20px'
-          }}
-        />
-        <p className="mt-3">
-        {el[1].tags.map(el => (
-          <span key={el}>{el} </span>
-        ))}
-        </p>
-      </div>
-    ))
+    return arr.map(el => {
+      return <Card props={{el, handleClick}} key={el[0]}/>
+    })
   }
 
   return (
     <>
-      <h3 style={{padding: '0 10px'}}>{currentData[1]}</h3>
-      <div className="row container-fluid m-auto card-deck justify-content-center">
-        {getHTMLElements(getFilteredData())}
-      </div>  
+      {activeCard.length ? <Popup/> : null}
+        <h3 style={{padding: '0 10px'}}>{currentData[1]}</h3>
+        <div className="row container-fluid m-auto card-deck justify-content-center">
+          {elementsToShow}
+        </div>  
     </>
   );
 }
