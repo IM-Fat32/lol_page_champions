@@ -13,12 +13,10 @@ import SearchButton from "./subComponents/SearchButton.jsx";
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-const SearchBar = ({currentStyle}) => {
+const SearchBar = ({currentStyles}) => {
   const {isSearchingActivated, setIsSearchingActivated} = useContext(SearchDataFlagContext); // redirect to page if true
   const {inputValue} = useContext(InputContext); //input value from SearchBar
   const {category, setCategory} = useContext(CategoryContext);
-
-  console.log(currentStyle)
 
   useEffect(()=>{
     setIsSearchingActivated(false);
@@ -36,10 +34,15 @@ const SearchBar = ({currentStyle}) => {
           <Row>
             <InputGroup>
                 <CategoryContext.Provider value={{category, setCategory}}>
-                  <SearchCategory/>
-                  <SearchInput/>
+                  <SearchCategory currentStyles={currentStyles.category}/>
+                  <SearchInput 
+                    currentStyles={{
+                      inputStyles: currentStyles.input, 
+                      autocompleteStyles: currentStyles.autocomplete
+                    }}
+                  />
                 </CategoryContext.Provider>
-                <SearchButton/>
+                <SearchButton currentStyles={currentStyles.button}/>
             </InputGroup>
           </Row>
         </Form>

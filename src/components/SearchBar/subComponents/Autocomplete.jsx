@@ -26,7 +26,7 @@ export function filtrData(name, tags, currentCategory, inputValue) {
   return false;
 }
 
-const Autocomplete = () => {
+const Autocomplete = ({currentStyles}) => {
   const {inputValue, setInputValue} = useContext(InputContext); //use context from App.js <InputContext value={}/>
   const {shouldRenderAutocomplete, setShouldRenderAutocomplete} = useContext(AutocompleteContext);// use context from App.js <AutocompleteContext
   const ChampionsNameArr = useContext(ChampionDataContext);
@@ -51,9 +51,9 @@ const Autocomplete = () => {
     const name= el[0];
     return(
     <Link  to={`/search/${category}/${name}`}
-    className="list-group-item" 
+      className="list-group-item" 
       key={name}
-      style={{padding: '10px 20px',}}
+      style={{padding: '10px 20px',backgroundColor: currentStyles.backgroundColor,}}
       onClick={() => {
         handleChooseOption(name);
       }}

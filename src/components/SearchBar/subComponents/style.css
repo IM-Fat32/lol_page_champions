@@ -1,0 +1,12 @@
+#input-search::placeholder {
+  color: black;
+}
+
+select option{
+ 
+  
+} 
+
+.selectpicker {
+  cursor: pointer !important;
+}

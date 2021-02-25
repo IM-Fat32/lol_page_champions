@@ -74,7 +74,7 @@ const SearchedChampions = () => {
         />
         <p className="mt-3">
         {el[1].tags.map(el => (
-          <span>{el} </span>
+          <span key={el}>{el} </span>
         ))}
         </p>
       </div>

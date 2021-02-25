@@ -3,7 +3,9 @@ import React,{useContext} from 'react';
 import {CategoryContext} from "../../../context/CategoryContext.js";
 import {InputContext} from "../../../context/InputContext.js";
 
-const SearchCategory = () => {
+import './style.css';
+
+const SearchCategory = ({currentStyles}) => {
   //categories of champions in game
   const tagsArr = ['all','fighter', 'tank', 'mage', 'assassin', 'support', 'marksman'];
 
@@ -22,21 +24,18 @@ const SearchCategory = () => {
   }
 
   return ( 
-  <select className="md-form"
-  onChange={handleOnChange}
-  style={{
-    borderRadius: '30px 0 0 30px',
-    padding: '0 0 0 20px',
-    border: 'none',
-  //       backgroundColor: currentStyle.componentsSecondary
-  }}
+  <select className='selectpicker'
+    onChange={handleOnChange}
+    style={
+      currentStyles
+    }
   >
   {/* Create elements of dropdown */}
   {
   tagsArr.map((el) => {
     return (
-      <option  key={el}>
-      {toUpperFirstLetter(el)}
+      <option className="option-picker" key={el}>
+        {toUpperFirstLetter(el)}
       </option>
       )
     })
