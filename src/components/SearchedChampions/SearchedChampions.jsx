@@ -7,7 +7,7 @@ import {SearchDataFlagContext} from "../../context/SearchDataFlagContext.js";
 
 
 import Card from './Card.jsx';
-import Popup from './Popup.jsx';
+import Popup from './PopupGroup/Popup.jsx';
 
 
 const SearchedChampions = () => {
@@ -26,9 +26,7 @@ const SearchedChampions = () => {
     currentData = currentData.split('/');
     setCurrentData(currentData);
   },[isSearchingActivated, activeCard])
-  console.log(activeCard)
   const elementsToShow = getHTMLElements(getFilteredData());
-  
 
   function getFilteredData() {
     const dataToShow = ChampionsNameArr.filter(el => {
@@ -72,7 +70,7 @@ const SearchedChampions = () => {
 
   return (
     <>
-      {activeCard.length ? <Popup/> : null}
+      {activeCard.length ? <Popup props={{activeCard, setActiveCard}}/> : null}
         <h3 style={{padding: '0 10px'}}>{currentData[1]}</h3>
         <div className="row container-fluid m-auto card-deck justify-content-center">
           {elementsToShow}

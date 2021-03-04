@@ -17,7 +17,7 @@ class Card extends React.PureComponent {
         border: 'none'
       }}
       >
-        <h5 className="card-title">{this.championData[0]}</h5>
+        <h5 className="card-title">{this.championData[1].name}</h5>
         <p className='card-subtitle mb-3' >{this.championData[1].title}</p>
         <img 
           src={`https://ddragon.leagueoflegends.com/cdn/img/champion/splash/${this.championData[0]}_0.jpg`} 
